@@ -29,13 +29,16 @@
 
 <body>
 
-    @livewire('navigation-menu')
+    @include('layouts.partials.navigation-menu')
 
     {{ $slot }}
+
+    @include('layouts.partials.footer')
 
     <!-- Bootstrap Js e Js personalisado -->
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     @livewireScripts
 </body>
