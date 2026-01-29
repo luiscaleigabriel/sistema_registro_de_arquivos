@@ -16,4 +16,19 @@ class Processo extends Model
         'student_id',
         'doc_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function student()
+    {
+        return $this->belongsTo(Estudante::class);
+    }
+
+    public function docs()
+    {
+        return $this->belongsToMany(Documento::class);
+    }
 }

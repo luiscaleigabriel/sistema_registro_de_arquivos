@@ -15,4 +15,14 @@ class Documento extends Model
         'status',
         'id_user',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function processo()
+    {
+        return $this->hasOne(Processo::class);
+    }
 }

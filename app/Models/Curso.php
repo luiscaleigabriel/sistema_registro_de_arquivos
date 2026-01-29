@@ -12,4 +12,14 @@ class Curso extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function turmas()
+    {
+        return $this->hasMany(Turma::class);
+    }
+
+    public function students()
+    {
+        return $this->belongsTo(Estudante::class);
+    }
 }

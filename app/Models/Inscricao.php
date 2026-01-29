@@ -14,4 +14,9 @@ class Inscricao extends Model
         'nota_teste',
         'user_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

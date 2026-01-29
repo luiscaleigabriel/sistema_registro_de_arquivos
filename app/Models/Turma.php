@@ -14,4 +14,15 @@ class Turma extends Model
         'capacity',
         'periodo',
     ];
+
+    public function curso()
+    {
+        return $this->belongsTo(Curso::class);
+    }
+
+    public function students()
+    {
+        return $this->belongsTo(Estudante::class);
+    }
+    
 }

@@ -15,4 +15,24 @@ class Estudante extends Model
         'curso_id',
         'turma_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function curso()
+    {
+        return $this->belongsTo(Curso::class);
+    }
+
+    public function turma()
+    {
+        return $this->belongsTo(Turma::class);
+    }
+
+    public function processo()
+    {
+        return $this->hasOne(Processo::class);
+    }
 }
