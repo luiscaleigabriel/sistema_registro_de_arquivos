@@ -5,9 +5,6 @@ use App\Livewire\ShowTweets;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('tweets', ShowTweets::class);
-
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
