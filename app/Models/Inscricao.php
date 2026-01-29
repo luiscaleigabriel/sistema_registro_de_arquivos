@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Inscricao extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'status',
+        'nota_teste',
+        'user_id',
+    ];
 }

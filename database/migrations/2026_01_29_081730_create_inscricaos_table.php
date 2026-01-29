@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('inscricaos', function (Blueprint $table) {
             $table->id();
-            $table->set('status', ['reprovada', 'aprovada', '', 'inscrito']);
+            $table->set('status', ['reprovada', 'aprovada', 'em analise', 'inscrito'])->default('em analise');
+            $table->float('nota_teste', 2, 2);
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

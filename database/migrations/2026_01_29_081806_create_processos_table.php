@@ -13,7 +13,16 @@ return new class extends Migration
     {
         Schema::create('processos', function (Blueprint $table) {
             $table->id();
+            $table->string('numProcess')->unique();
+            $table->set('status', [ 'inativo','aberto', 'concluido'])->default('inativo');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('student_id');
+            $table->unsignedBigInteger('doc_id');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('student_id')->references('id')->on('estudantes');
+            $table->foreign('doc_id')->references('id')->on('documentos');
         });
     }
 
