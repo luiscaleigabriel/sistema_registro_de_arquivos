@@ -4,14 +4,16 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>{{ $title ?? config('app.name') }}</title>
+        <title>Sistema de Aquivos</title>
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 
         @livewireStyles
     </head>
     <body>
         {{ $slot }}
+
+        <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" ></script>
 
         @livewireScripts
     </body>
