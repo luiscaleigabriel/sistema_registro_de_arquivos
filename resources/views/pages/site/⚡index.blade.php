@@ -4,10 +4,14 @@ use Livewire\Component;
 
 new class extends Component
 {
-    
+
 };
 ?>
 
 <div>
-    <h1>Hello! world</h1>
+    <livewire:partials.header />
+
+    <h1 class="pt-4">Hello! world</h1>
+
+    <livewire:partials.footer />
 </div>

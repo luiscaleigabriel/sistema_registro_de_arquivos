@@ -9,5 +9,5 @@ new class extends Component
 ?>
 
 <div>
-    {{-- Walk as if you are kissing the Earth with your feet. - Thich Nhat Hanh --}}
+    <h4>Footer</h4>
 </div>
