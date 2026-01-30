@@ -10,7 +10,7 @@ new class extends Component {};
 <div>
     <livewire:partials.header />
 
-    <!-- Hero Section -->
+        <!-- Hero Section -->
         <section class="hero-section">
             <div class="container">
                 <div class="row align-items-center min-vh-100">
@@ -216,5 +216,5 @@ new class extends Component {};
             </div>
         </section>
 
-        <livewire:partials.footer />
+    <livewire:partials.footer />
 </div>
