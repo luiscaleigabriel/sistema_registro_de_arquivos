@@ -1,20 +1,33 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Sistema de Aquivos</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <title>Instituto Politécnico 30 de Setembro - Gestão de Processos</title>
 
-        @livewireStyles
-    </head>
-    <body>
-        {{ $slot }}
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 
-        <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" ></script>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
-        @livewireScripts
-    </body>
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    @yield('css')
+
+    @livewireStyles
+</head>
+
+<body>
+    {{ $slot }}
+
+    <livewire:auth.login />
+
+    <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+    @yield('js')
+
+    @livewireScripts
+</body>
+
 </html>
