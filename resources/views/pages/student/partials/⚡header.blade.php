@@ -3,7 +3,11 @@
 use Livewire\Component;
 
 new class extends Component {
-    //
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('site.index');
+    }
 };
 ?>
 
@@ -19,47 +23,6 @@ new class extends Component {
             </div>
 
             <div class="d-flex align-items-center">
-                <!-- Notificações -->
-                <div class="dropdown me-3">
-                    <button class="btn btn-light position-relative" data-bs-toggle="dropdown">
-                        <i class="bi bi-bell"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            3
-                        </span>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end shadow">
-                        <h6 class="dropdown-header">Notificações</h6>
-                        <div class="notification-item">
-                            <div class="d-flex">
-                                <div class="me-3">
-                                    <i class="bi bi-check-circle text-success"></i>
-                                </div>
-                                <div>
-                                    <small class="fw-bold">Documento aprovado</small>
-                                    <p class="mb-0 small">Seu BI foi aprovado pela secretaria.</p>
-                                    <small class="text-muted">Há 2 horas</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="notification-item">
-                            <div class="d-flex">
-                                <div class="me-3">
-                                    <i class="bi bi-exclamation-triangle text-warning"></i>
-                                </div>
-                                <div>
-                                    <small class="fw-bold">Documento pendente</small>
-                                    <p class="mb-0 small">Seu certificado necessita de revisão.</p>
-                                    <small class="text-muted">Há 1 dia</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item text-center small">
-                            Ver todas as notificações
-                        </a>
-                    </div>
-                </div>
-
                 <!-- Usuário -->
                 <div class="dropdown">
                     <button class="btn btn-light d-flex align-items-center" data-bs-toggle="dropdown">
@@ -78,7 +41,7 @@ new class extends Component {
                             <i class="bi bi-key me-2"></i>Alterar Senha
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="../../index.html">
+                        <a class="dropdown-item" href="#" wire:click.prevent='logout'>
                             <i class="bi bi-box-arrow-left me-2"></i>Sair
                         </a>
                     </div>

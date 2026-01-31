@@ -3,7 +3,11 @@
 use Livewire\Component;
 
 new class extends Component {
-    //
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('site.index');
+    }
 };
 ?>
 
@@ -27,9 +31,9 @@ new class extends Component {
                 <img src="https://via.placeholder.com/100/1e3a8a/ffffff?text=JS" alt="Aluno" class="avatar-img">
             </div>
             <div class="user-info">
-                <h6 class="fw-bold mb-0" id="sidebarUserName">João da Silva</h6>
-                <small class="text-muted" id="sidebarUserEmail">joao.silva@email.com</small>
-                <span class="badge bg-primary mt-1" id="sidebarUserStatus">Inscrição em análise</span>
+                <h6 class="fw-bold mb-0" id="sidebarUserName">{{ Auth::user()->name }}</h6>
+                <small class="text-muted" id="sidebarUserEmail">{{ Auth::user()->email }}</small>
+                <span class="badge bg-primary mt-1" id="sidebarUserStatus">{{ Auth::user()->get_inscricao()->first()->status }}</span>
             </div>
         </div>
 
@@ -83,15 +87,11 @@ new class extends Component {
                 </a>
             </li>
             <li class="menu-item">
-                <a href="../../index.html" class="text-danger">
+                <a href="#" class="text-danger" wire:click.prevent='logout'>
                     <i class="bi bi-box-arrow-left"></i>
                     <span>Sair</span>
                 </a>
             </li>
         </ul>
-
-        <div class="sidebar-footer">
-            <small class="text-muted">Versão 1.0.0</small>
-        </div>
     </nav>
 </div>

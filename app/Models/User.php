@@ -60,7 +60,7 @@ class User extends Authenticatable
 
     public function get_inscricao()
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(Inscricao::class);
     }
 
     public function processo()

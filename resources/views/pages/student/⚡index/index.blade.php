@@ -16,86 +16,7 @@
         <main class="content-wrapper">
             <!-- Breadcrumb -->
             <nav aria-label="breadcrumb" class="mb-4">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Painel Principal</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Visão Geral</li>
-                </ol>
             </nav>
-
-            <!-- Status do Processo -->
-            <div class="row mb-4">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header bg-primary text-white">
-                            <h5 class="card-title mb-0">
-                                <i class="bi bi-clipboard-check me-2"></i>
-                                Status do Seu Processo
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="process-timeline">
-                                <div class="process-step completed">
-                                    <div class="step-icon">
-                                        <i class="bi bi-check-circle"></i>
-                                    </div>
-                                    <div class="step-content">
-                                        <h6 class="fw-bold">Inscrição Realizada</h6>
-                                        <small class="text-muted">15/01/2024 - 14:30</small>
-                                        <p class="mb-0">Sua inscrição foi recebida com sucesso.</p>
-                                    </div>
-                                </div>
-
-                                <div class="process-step completed">
-                                    <div class="step-icon">
-                                        <i class="bi bi-check-circle"></i>
-                                    </div>
-                                    <div class="step-content">
-                                        <h6 class="fw-bold">Teste de Admissão</h6>
-                                        <small class="text-muted">18/01/2024 - 10:15</small>
-                                        <p class="mb-0">Você realizou o teste online. Nota: 85/100</p>
-                                    </div>
-                                </div>
-
-                                <div class="process-step active">
-                                    <div class="step-icon">
-                                        <i class="bi bi-hourglass-split"></i>
-                                    </div>
-                                    <div class="step-content">
-                                        <h6 class="fw-bold">Análise de Documentos</h6>
-                                        <small class="text-muted">Em andamento</small>
-                                        <p class="mb-0">2 de 3 documentos aprovados</p>
-                                        <div class="progress mt-2" style="height: 5px;">
-                                            <div class="progress-bar bg-warning" style="width: 66%"></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="process-step">
-                                    <div class="step-icon">
-                                        <i class="bi bi-clock"></i>
-                                    </div>
-                                    <div class="step-content">
-                                        <h6 class="fw-bold">Matrícula</h6>
-                                        <small class="text-muted">Pendente</small>
-                                        <p class="mb-0">Aguardando conclusão das etapas anteriores</p>
-                                    </div>
-                                </div>
-
-                                <div class="process-step">
-                                    <div class="step-icon">
-                                        <i class="bi bi-mortarboard"></i>
-                                    </div>
-                                    <div class="step-content">
-                                        <h6 class="fw-bold">Início das Aulas</h6>
-                                        <small class="text-muted">15/03/2024</small>
-                                        <p class="mb-0">Previsão de início do semestre</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!-- Cards de Resumo -->
             <div class="row mb-4">
@@ -106,7 +27,7 @@
                                 <div>
                                     <h6 class="text-muted mb-2">Status Geral</h6>
                                     <h4 class="fw-bold mb-0">
-                                        <span class="text-warning" id="statusText">Em Análise</span>
+                                        <span class="text-warning" id="statusText">{{ Auth::user()->get_inscricao()->first()->status }}</span>
                                     </h4>
                                 </div>
                                 <div class="stat-icon">
@@ -221,20 +142,6 @@
                                         <p class="text-muted small">Gere comprovante de inscrição</p>
                                         <button class="btn btn-sm btn-success w-100" id="printReceipt">
                                             Imprimir
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="action-card">
-                                        <div class="action-icon bg-info">
-                                            <i class="bi bi-calendar-check"></i>
-                                        </div>
-                                        <h6 class="mt-3 mb-2">Calendário</h6>
-                                        <p class="text-muted small">Consulte datas importantes</p>
-                                        <button class="btn btn-sm btn-info w-100" data-bs-toggle="modal"
-                                            data-bs-target="#calendarModal">
-                                            Ver Calendário
                                         </button>
                                     </div>
                                 </div>
@@ -480,25 +387,6 @@
                     <button type="button" class="btn btn-primary">
                         <i class="bi bi-download me-2"></i>Baixar Grade Curricular
                     </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal de Calendário -->
-    <div class="modal fade" id="calendarModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title">
-                        <i class="bi bi-calendar-check me-2"></i>Calendário Académico
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="calendar-events">
-                        <!-- Eventos serão carregados via JavaScript -->
-                    </div>
                 </div>
             </div>
         </div>
