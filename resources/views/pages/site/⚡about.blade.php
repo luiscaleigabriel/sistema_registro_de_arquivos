@@ -10,9 +10,6 @@ new class extends Component {
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
 @endsection
-@section('js')
-    <script src="{{ asset('assets/js/home.js') }}"></script>
-@endsection
 
 <div>
     <livewire:partials.header />

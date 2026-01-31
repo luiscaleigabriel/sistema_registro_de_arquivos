@@ -10,11 +10,15 @@ new class extends Component {
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets/css/cursos.css') }}">
 @endsection
+
 @section('js')
     <script src="{{ asset('assets/js/cursos.js') }}"></script>
+    <script></script>
 @endsection
 
 <div>
+
+    <livewire:partials.header />
 
     <!-- Hero Section Cursos -->
     <section class="hero-cursos py-5">
@@ -593,5 +597,7 @@ new class extends Component {
             </div>
         </div>
     </div>
+
+    <livewire:partials.footer />
 
 </div>

@@ -25,6 +25,8 @@
     <livewire:auth.login />
 
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+
+    <!-- Js Personalizado -->
     @yield('js')
 
     @livewireScripts

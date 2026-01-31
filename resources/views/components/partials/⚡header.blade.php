@@ -29,7 +29,7 @@ new class extends Component {
                         <a class="nav-link" href="{{ route('site.about') }}">Sobre</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Cursos</a>
+                        <a class="nav-link" href="{{ route('site.cursos') }}">Cursos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Inscrição</a>
