@@ -3,7 +3,10 @@
 use Livewire\Component;
 
 new class extends Component {
-    //
+    public function logout()
+    {
+        auth()->logout();
+    }
 };
 ?>
 
@@ -37,11 +40,21 @@ new class extends Component {
                     <li class="nav-item">
                         <a class="nav-link" href="#">Teste Online</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">
-                            <i class="bi bi-box-arrow-in-right me-1"></i>Login
-                        </a>
-                    </li>
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">
+                                <i class="bi bi-box-arrow-in-right me-1"></i>Login
+                            </a>
+                        </li>
+                    @endguest
+                    @auth
+                        <li class="nav-item">
+                            <a >{{ auth()->user()->name }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-danger" wire:click='logout'>Logout</button>
+                        </li>
+                    @endauth
                 </ul>
             </div>
         </div>

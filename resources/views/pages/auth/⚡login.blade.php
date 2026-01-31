@@ -1,9 +1,41 @@
 <?php
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 new class extends Component {
-    //
+
+    public $email;
+    public $password;
+
+    public $rules = [
+        'email' => 'required',
+        'password' => 'required',
+    ];
+
+    public function login()
+    {
+        $this->validate();
+
+        $autenticated = Auth::attempt([
+            'email' => $this->email,
+            'password' => $this->password,
+        ]);
+
+        if (!$autenticated) {
+            session()->flash('error', 'Email ou senha inválida!');
+        }else {
+
+            if(Auth::user()->role == 'student') {
+                return redirect('/');
+            }else if('admin') {
+                dd('admin');
+            }
+
+        }
+
+    }
+
 };
 ?>
 
@@ -21,46 +53,56 @@ new class extends Component {
     <livewire:partials.header />
 
     <!-- Área de Login -->
-    <div class="container mt-4 mb-4 justify-content-center align-items-center">
+    <div class="container mt-4 mb-4">
         <div class="row justify-content-center align-items-center min-vh-100">
-            <div class="col-lg-8">
-                <div class="row g-4">
+            <div>
+                <div class="row justify-content-center align-items-center">
                     <!-- Coluna do Formulário -->
                     <div class="col-lg-6">
                         <div class="card border-0 shadow-lg">
                             <div class="card-header bg-primary text-white py-4">
                                 <h4 class="fw-bold mb-0 text-center">
                                     <i class="bi bi-box-arrow-in-right me-2"></i>
-                                    Acesso ao Sistema
+                                    Bem vindo, de volta!
                                 </h4>
                             </div>
 
                             <div class="card-body p-5">
                                 <!-- Formulário de Login -->
-                                <form id="loginForm">
+                                @if (session()->has('error'))
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ session()->get('error') }}
+                                    </div>
+                                @endif
+                                <form id="loginForm" wire:submit.prevent='login'>
+                                    @csrf
                                     <div class="mb-4">
                                         <div class="form-floating">
                                             <input type="email" class="form-control" id="email"
-                                                placeholder="Email" required>
+                                                placeholder="Email" name="email" wire:model='email' value="{{ old('email') }}">
                                             <label for="email">
                                                 <i class="bi bi-envelope me-2"></i>Email
                                             </label>
-                                            <div class="invalid-feedback">
-                                                Por favor, informe seu email.
-                                            </div>
+                                            @error('email')
+                                                <div class="text text-danger">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="mb-4">
                                         <div class="form-floating">
                                             <input type="password" class="form-control" id="password"
-                                                placeholder="Senha" required>
+                                                placeholder="Senha" name="password" wire:model='password'>
                                             <label for="password">
                                                 <i class="bi bi-lock me-2"></i>Senha
                                             </label>
-                                            <div class="invalid-feedback">
-                                                Por favor, informe sua senha.
-                                            </div>
+                                            @error('password')
+                                                <div class="text text-danger">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -86,7 +128,7 @@ new class extends Component {
                                     </div>
                                 </form>
 
-                                
+
 
                                 <!-- Mensagem de Bem-vindo -->
                                 <div class="alert alert-info mt-4">
@@ -123,8 +165,8 @@ new class extends Component {
                     <form id="recoveryForm">
                         <div class="mb-3">
                             <label for="recoveryEmail" class="form-label">Email Cadastrado</label>
-                            <input type="email" class="form-control" id="recoveryEmail"
-                                placeholder="seu@email.com" required>
+                            <input type="email" class="form-control" id="recoveryEmail" placeholder="seu@email.com"
+                                required>
                         </div>
                         <div class="alert alert-info">
                             <i class="bi bi-info-circle me-2"></i>
