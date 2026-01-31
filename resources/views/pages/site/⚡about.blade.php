@@ -17,18 +17,8 @@ new class extends Component {
 <div>
     <livewire:partials.header />
 
-    <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb" class="bg-light py-3">
-        <div class="container">
-            <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="index.html">Início</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Sobre o Instituto</li>
-            </ol>
-        </div>
-    </nav>
-
     <!-- Hero Section Sobre -->
-    <section class="hero-sobre py-5">
+    <section class="hero-sobre py-5 mt-4">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
@@ -352,5 +342,6 @@ new class extends Component {
 
     <livewire:partials.footer />
 
-    
+    <livewire:partials.gallerymodal />
+
 </div>

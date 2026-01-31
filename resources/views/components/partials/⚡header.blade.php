@@ -23,7 +23,7 @@ new class extends Component {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ route('site.about') }}">Início</a>
+                        <a class="nav-link active" href="{{ route('site.index') }}">Início</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('site.about') }}">Sobre</a>
