@@ -32,13 +32,13 @@ new class extends Component {
                         <a class="nav-link" href="{{ route('site.cursos') }}">Cursos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Inscrição</a>
+                        <a class="nav-link" href="{{ route('site.inscricao') }}">Inscrição</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Teste Online</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        <a class="nav-link" href="{{ route('login') }}">
                             <i class="bi bi-box-arrow-in-right me-1"></i>Login
                         </a>
                     </li>

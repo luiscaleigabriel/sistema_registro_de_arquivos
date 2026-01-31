@@ -22,8 +22,6 @@
 <body>
     {{ $slot }}
 
-    <livewire:auth.login />
-
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Js Personalizado -->
