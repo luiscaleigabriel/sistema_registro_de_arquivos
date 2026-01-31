@@ -25,5 +25,5 @@ Route::middleware('guest')->group( function() {
 */
 
 Route::middleware(['auth', 'is_student'])->group( function() {
-    Route::livewire('/painel/aluno', 'pages::dashboard.aluno.index')->name('aluno.index');
+    Route::livewire('/painel/aluno', 'pages::student.index')->name('student.index');
 });

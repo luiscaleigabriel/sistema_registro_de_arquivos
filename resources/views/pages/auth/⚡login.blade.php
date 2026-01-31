@@ -27,11 +27,11 @@ new class extends Component {
         }else {
 
             if(Auth::user()->role == 'student') {
-                return redirect()->route('aluno.index');
+                return redirect()->route('student.index');
             }else if('admin') {
                 return redirect('/');
             }
-            
+
         }
 
     }
