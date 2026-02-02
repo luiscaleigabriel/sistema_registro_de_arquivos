@@ -28,7 +28,7 @@ new class extends Component {
 
         <div class="sidebar-user">
             <div class="user-avatar">
-                <img src="https://via.placeholder.com/100/1e3a8a/ffffff?text=JS" alt="Aluno" class="avatar-img">
+                <img src="{{ Auth::user()->photo ?? asset('assets/image/df.jpg') }}" alt="Aluno" class="avatar-img">
             </div>
             <div class="user-info">
                 <h6 class="fw-bold mb-0" id="sidebarUserName">{{ Auth::user()->name }}</h6>

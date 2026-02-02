@@ -12,6 +12,8 @@ class Curso extends Model
     protected $fillable = [
         'name',
         'duracao',
+        'period',
+        'description',
     ];
 
     public function turmas()

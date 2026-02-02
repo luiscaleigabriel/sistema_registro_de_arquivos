@@ -27,7 +27,8 @@
                                 <div>
                                     <h6 class="text-muted mb-2">Status Geral</h6>
                                     <h4 class="fw-bold mb-0">
-                                        <span class="text-warning" id="statusText">{{ Auth::user()->get_inscricao()->first()->status }}</span>
+                                        <span class="text-warning"
+                                            id="statusText">{{ Auth::user()->get_inscricao()->first()->status }}</span>
                                     </h4>
                                 </div>
                                 <div class="stat-icon">
@@ -48,9 +49,8 @@
                                 <div>
                                     <h6 class="text-muted mb-2">Documentos</h6>
                                     <h4 class="fw-bold mb-0">
-                                        <span id="docCount">2/3</span>
+                                        <span id="docCount">{{ count(Auth::user()->docs) }}/3</span>
                                     </h4>
-                                    <small class="text-success" id="docStatus">Aprovados</small>
                                 </div>
                                 <div class="stat-icon">
                                     <i class="bi bi-folder-check text-success"></i>
@@ -70,9 +70,14 @@
                                 <div>
                                     <h6 class="text-muted mb-2">Nota do Teste</h6>
                                     <h4 class="fw-bold mb-0">
-                                        <span id="testScore">85</span>/100
+                                        <span
+                                            id="testScore">{{ number_format(Auth::user()->get_inscricao()->first()->nota_teste, 1, ',') }}</span>/100
                                     </h4>
-                                    <small class="text-success" id="testStatus">Aprovado</small>
+                                    @if (Auth::user()->get_inscricao()->first()->status == 'em analise')
+                                        <small class="text-warning" id="testStatus">Em Analise</small>
+                                    @else
+                                        <small class="text-success" id="testStatus">Aprovado</small>
+                                    @endif
                                 </div>
                                 <div class="stat-icon">
                                     <i class="bi bi-award text-success"></i>
@@ -184,78 +189,6 @@
 
                 <!-- Alertas e Notícias -->
                 <div class="col-lg-4">
-                    <!-- Alertas -->
-                    <div class="card mb-4">
-                        <div class="card-header bg-warning">
-                            <h5 class="card-title mb-0 text-white">
-                                <i class="bi bi-exclamation-triangle me-2"></i>
-                                Atenção Necessária
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="alert-item">
-                                <div class="d-flex">
-                                    <div class="me-3">
-                                        <i class="bi bi-exclamation-circle text-danger"></i>
-                                    </div>
-                                    <div>
-                                        <h6 class="fw-bold mb-1">Certificado Pendente</h6>
-                                        <p class="small mb-2">Seu certificado de conclusão do ensino médio precisa ser
-                                            reenviado.</p>
-                                        <a href="documentos.html" class="btn btn-sm btn-danger">Corrigir Agora</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Próximos Passos -->
-                    <div class="card mb-4">
-                        <div class="card-header bg-info text-white">
-                            <h5 class="card-title mb-0">
-                                <i class="bi bi-list-check me-2"></i>
-                                Próximos Passos
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            <ul class="list-unstyled mb-0">
-                                <li class="mb-3">
-                                    <div class="d-flex">
-                                        <div class="me-3">
-                                            <span class="step-number">1</span>
-                                        </div>
-                                        <div>
-                                            <h6 class="fw-bold mb-1">Aprovação dos Documentos</h6>
-                                            <p class="small text-muted mb-0">Aguardando análise do certificado</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="mb-3">
-                                    <div class="d-flex">
-                                        <div class="me-3">
-                                            <span class="step-number">2</span>
-                                        </div>
-                                        <div>
-                                            <h6 class="fw-bold mb-1">Confirmação de Matrícula</h6>
-                                            <p class="small text-muted mb-0">Após aprovação dos documentos</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="d-flex">
-                                        <div class="me-3">
-                                            <span class="step-number">3</span>
-                                        </div>
-                                        <div>
-                                            <h6 class="fw-bold mb-1">Pagamento da Matrícula</h6>
-                                            <p class="small text-muted mb-0">Será liberado após confirmação</p>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
                     <!-- Suporte -->
                     <div class="card">
                         <div class="card-header">
@@ -269,10 +202,10 @@
                             <div class="d-grid gap-2">
                                 <button class="btn btn-outline-primary" data-bs-toggle="modal"
                                     data-bs-target="#helpModal">
-                                    <i class="bi bi-chat-left-text me-2"></i>Chat de Suporte
+                                    <i class="bi bi-chat-left-text me-2"></i>Suporte
                                 </button>
                                 <button class="btn btn-outline-secondary">
-                                    <i class="bi bi-telephone me-2"></i>(222) 123-456
+                                    <i class="bi bi-telephone me-2"></i>(244) 999 999 999
                                 </button>
                                 <button class="btn btn-outline-info">
                                     <i class="bi bi-envelope me-2"></i>suporte@instituto.ao
@@ -299,7 +232,89 @@
                 </div>
                 <div class="modal-body">
                     <div id="profileContent">
-                        <!-- Conteúdo será carregado via JavaScript -->
+                        <div class="row">
+                            <div class="col-md-4 text-center mb-4 mb-md-0">
+                                <div class="user-avatar-lg mb-3">
+                                    <img src="{{ Auth::user()->photo ?? asset('assets/image/df.jpg') }}"
+                                        alt="Aluno" class="avatar-img-lg">
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <form wire:submit.prevent='updateProfile' id="profileForm">
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="profileName"
+                                                     wire:model='name' />
+                                                <label for="profileName">Nome Completo</label>
+                                                @error('name') <small class="text text-danger">{{ $message }}</small> @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input disabled type="email" class="form-control" id="profileEmail" value="{{ Auth::user()->email }}">
+                                                <label for="profileEmail">Email</label>
+                                                <small class="text text-warning">Para alterar o Email fale com o Admim</small>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input type="tel" class="form-control" id="profilePhone"
+                                                    wire:model='phone'>
+                                                <label for="profilePhone">Telefone</label>
+                                                @error('phone') <small class="text text-danger">{{ $message }}</small> @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input wire:model='data_nasc' type="date" class="form-control" id="profileBirthDate">
+                                                <label for="profileBirthDate">Data de Nascimento</label>
+                                                @error('data_nasc') <small class="text text-danger">{{ $message }}</small> @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-floating">
+                                                <input wire:model='bi' type="text" class="form-control" id="profileBI">
+                                                <label for="profileBI">Bilhete de Identidade</label>
+                                                @error('bi') <small class="text text-danger">{{ $message }}</small> @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="form-floating">
+                                                <textarea wire:model='morada' class="form-control" id="profileAddress" style="height: 100px"></textarea>
+                                                <label for="profileAddress">Morada</label>
+                                                @error('morada') <small class="text text-danger">{{ $message }}</small> @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-floating">
+                                                <div class="mb-3">
+                                                    <label for="formFile" class="form-label">Escolher outra imagem</label>
+                                                    <input wire:model='photo' class="form-control" type="file" id="formFile">
+                                                    @error('photo') <small class="text text-danger">{{ $message }}</small> @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="bi bi-check-circle me-2"></i>Salvar Alterações
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            data-bs-dismiss="modal">
+                                            Cancelar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -354,39 +369,24 @@
                 </div>
                 <div class="modal-body">
                     <div class="course-info">
-                        <h5 class="fw-bold mb-3">Informática</h5>
+                        <h5 class="fw-bold mb-3">{{ Auth::user()->students()->first()->curso()->first()->name }}</h5>
                         <div class="row mb-3">
                             <div class="col-6">
                                 <small class="text-muted d-block">Duração</small>
-                                <strong>3 anos</strong>
+                                <strong>{{ Auth::user()->students()->first()->curso()->first()->duracao }}</strong>
                             </div>
                             <div class="col-6">
                                 <small class="text-muted d-block">Período</small>
-                                <strong>Noturno</strong>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-6">
-                                <small class="text-muted d-block">Início das Aulas</small>
-                                <strong>15/03/2024</strong>
-                            </div>
-                            <div class="col-6">
-                                <small class="text-muted d-block">Turno</small>
-                                <strong>18h às 22h</strong>
+                                <strong>{{ Auth::user()->students()->first()->curso()->first()->period }}</strong>
                             </div>
                         </div>
                         <hr>
-                        <h6 class="fw-bold mb-2">Coordenador do Curso</h6>
-                        <p class="mb-3">Prof. João Silva - joao.silva@instituto.ao</p>
-                        <h6 class="fw-bold mb-2">Local das Aulas</h6>
-                        <p class="mb-0">Bloco B, Sala 201 - Campus Principal</p>
+                        <h6 class="fw-bold mb-2">Descriçã:</h6>
+                        <p class="mb-3">{{ Auth::user()->students()->first()->curso()->first()->description }}</p>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary">
-                        <i class="bi bi-download me-2"></i>Baixar Grade Curricular
-                    </button>
                 </div>
             </div>
         </div>
@@ -404,7 +404,85 @@
                 </div>
                 <div class="modal-body">
                     <div id="helpContent">
-                        <!-- Conteúdo será carregado via JavaScript -->
+                        <div class="accordion" id="helpAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#help1">
+                                        Como enviar documentos?
+                                    </button>
+                                </h2>
+                                <div id="help1" class="accordion-collapse collapse show"
+                                    data-bs-parent="#helpAccordion">
+                                    <div class="accordion-body">
+                                        <p>Acesse a seção <strong>"Meus Documentos"</strong> no menu lateral. Clique no
+                                            botão "Enviar Documento" e selecione o arquivo desejado. Formatos aceitos:
+                                            PDF, JPG, PNG. Tamanho máximo: 5MB por arquivo.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#help2">
+                                        Como ver o status da minha inscrição?
+                                    </button>
+                                </h2>
+                                <div id="help2" class="accordion-collapse collapse"
+                                    data-bs-parent="#helpAccordion">
+                                    <div class="accordion-body">
+                                        <p>No <strong>Painel Principal</strong>, você verá uma linha do tempo com o
+                                            status de cada etapa do processo. A seção "Status do Seu Processo" mostra
+                                            detalhadamente cada fase.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#help3">
+                                        Quando receberei o resultado do teste?
+                                    </button>
+                                </h2>
+                                <div id="help3" class="accordion-collapse collapse"
+                                    data-bs-parent="#helpAccordion">
+                                    <div class="accordion-body">
+                                        <p>O resultado do teste de admissão é disponibilizado em até <strong>48 horas
+                                                úteis</strong> após a realização. Você será notificado por email e
+                                            poderá consultar na seção "Resultado do Teste".</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <h6 class="fw-bold mb-3">Canais de Atendimento</h6>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card border-0 bg-light">
+                                        <div class="card-body text-center">
+                                            <i class="bi bi-telephone fs-1 text-primary mb-3"></i>
+                                            <h6>Telefone</h6>
+                                            <p class="small">(244) 999 999 999</p>
+                                            <small class="text-muted">Seg-Sex: 8h-18h</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="card border-0 bg-light">
+                                        <div class="card-body text-center">
+                                            <i class="bi bi-envelope fs-1 text-primary mb-3"></i>
+                                            <h6>Email</h6>
+                                            <p class="small">suporte@instituto.ao</p>
+                                            <small class="text-muted">Resposta em até 24h</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

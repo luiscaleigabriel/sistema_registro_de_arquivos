@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->integer('capacity');
-            $table->integer('periodo');
+            $table->string('periodo');
             $table->timestamps();
         });
     }

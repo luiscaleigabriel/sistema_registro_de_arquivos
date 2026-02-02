@@ -27,7 +27,7 @@ new class extends Component {
                 <div class="dropdown">
                     <button class="btn btn-light d-flex align-items-center" data-bs-toggle="dropdown">
                         <div class="user-avatar-sm me-2">
-                            <img src="https://via.placeholder.com/100/1e3a8a/ffffff?text=JS" alt="Aluno">
+                            <img src="{{ Auth::user()->photo ?? asset('assets/image/df.jpg') }}" alt="Aluno">
                         </div>
                         <span id="topbarUserName">João Silva</span>
                         <i class="bi bi-chevron-down ms-2"></i>

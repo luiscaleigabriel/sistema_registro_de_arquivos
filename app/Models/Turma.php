@@ -12,7 +12,6 @@ class Turma extends Model
     protected $fillable = [
         'name',
         'capacity',
-        'periodo',
     ];
 
     public function curso()
@@ -24,5 +23,5 @@ class Turma extends Model
     {
         return $this->belongsTo(Estudante::class);
     }
-    
+
 }
