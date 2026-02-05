@@ -43,4 +43,11 @@ class Secretario extends Model
     {
         return $this->hasMany(Documento::class, 'validado_por');
     }
+
+    public function inscricoesAvaliadas()
+    {
+        return $this->hasMany(Inscricao::class, 'avaliado_por');
+    }
+
+
 }

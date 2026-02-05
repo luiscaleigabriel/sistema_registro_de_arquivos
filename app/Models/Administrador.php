@@ -53,4 +53,9 @@ class Administrador extends Model
     {
         return $this->nivel_permissao === 'super';
     }
+
+    public function processosCriados()
+    {
+        return $this->hasMany(Processo::class, 'criado_por');
+    }
 }

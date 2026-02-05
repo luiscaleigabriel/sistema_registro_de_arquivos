@@ -14,7 +14,6 @@
 
     <!-- CSS Personalizado -->
     <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
-    @yield('css')
 
 </head>
 

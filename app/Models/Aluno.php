@@ -42,6 +42,11 @@ class Aluno extends Model
         return $this->hasMany(Inscricao::class, 'aluno_id');
     }
 
+    public function documentos()
+    {
+        return $this->hasManyThrough(Documento::class, Processo::class, 'aluno_id', 'processo_id');
+    }
+
     // Scopes
     public function scopeAtivos($query)
     {
