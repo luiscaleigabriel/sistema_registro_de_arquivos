@@ -241,12 +241,6 @@ class Inscricao extends Model
                 $inscricao->processo_id = $processo->id;
                 $inscricao->save();
             }
-
-            // Criar atividade no log
-            activity()
-                ->performedOn($inscricao)
-                ->causedBy(auth()->user())
-                ->log('Inscrição criada: ' . $inscricao->aluno->numero_aluno);
         });
     }
 }

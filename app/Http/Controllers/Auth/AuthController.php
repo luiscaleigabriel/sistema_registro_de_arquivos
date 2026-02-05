@@ -55,10 +55,7 @@ class AuthController extends Controller
 
             // Registrar login
             $user = Auth::user();
-            activity()
-                ->causedBy($user)
-                ->log('Login realizado');
-
+           
             // Redirecionar conforme nível de acesso
             return $this->redirectToDashboard($user);
         }

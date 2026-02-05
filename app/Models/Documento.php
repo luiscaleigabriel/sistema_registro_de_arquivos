@@ -168,12 +168,5 @@ class Documento extends Model
             }
         });
 
-        static::created(function ($documento) {
-            // Criar atividade no log
-            activity()
-                ->performedOn($documento)
-                ->causedBy($documento->remetente)
-                ->log('Documento enviado: ' . $documento->nome_arquivo);
-        });
     }
 }

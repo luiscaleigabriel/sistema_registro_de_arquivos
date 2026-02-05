@@ -190,14 +190,6 @@ class Processo extends Model
                 $processo->data_abertura = now();
             }
         });
-
-        static::created(function ($processo) {
-            // Criar atividade no log
-            activity()
-                ->performedOn($processo)
-                ->causedBy(auth()->user())
-                ->log('Processo criado: ' . $processo->num_processo);
-        });
     }
 
     // Método estático para gerar número de processo

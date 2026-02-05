@@ -40,14 +40,14 @@ Route::middleware(['auth.check'])->group(function () {
     // Dashboard Geral (redireciona)
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // Área do Aluno 
+    // Área do Aluno
     Route::middleware(['aluno'])->prefix('aluno')->name('aluno.')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'alunoDashboard'])->name('dashboard');
 
         // Processos
         Route::get('/processos', [ProcessoController::class, 'alunoIndex'])->name('processos');
-        Route::get('/processos/{id}', [ProcessoController::class, 'alunoShow'])->name('processo.view');
         Route::get('/processos/novo', [ProcessoController::class, 'create'])->name('processos.create');
+        Route::get('/processos/{id}', [ProcessoController::class, 'alunoShow'])->name('processo.view');
         Route::post('/processos', [ProcessoController::class, 'store'])->name('processos.store');
 
         // Inscrições
