@@ -1,0 +1,43 @@
+:root {
+    --azul-principal: #0056b3;
+    --azul-secundario: #007bff;
+    --azul-claro: #e3f2fd;
+    --cinza-claro: #f8f9fa;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, var(--azul-principal), var(--azul-secundario));
+    color: white;
+    padding: 100px 0;
+}
+
+.feature-card {
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.btn-primary {
+    background-color: var(--azul-principal);
+    border-color: var(--azul-principal);
+}
+
+.btn-primary:hover {
+    background-color: var(--azul-secundario);
+    border-color: var(--azul-secundario);
+}
+
+footer {
+    background-color: #343a40;
+    color: white;
+}
