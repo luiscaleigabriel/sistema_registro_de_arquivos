@@ -21,12 +21,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'photo',
-        'date_nac',
-        'morada',
-        'phone',
-        'bi',
-        'role',
     ];
 
     /**
@@ -47,25 +41,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function docs()
-    {
-        return $this->hasMany(Documento::class);
-    }
-
-    public function students()
-    {
-        return $this->hasMany(Estudante::class);
-    }
-
-    public function get_inscricao()
-    {
-        return $this->hasOne(Inscricao::class);
-    }
-
-    public function processo()
-    {
-        return $this->hasOne(Processo::class);
-    }
-
 }
