@@ -40,17 +40,32 @@ Route::middleware(['auth.check'])->group(function () {
     // Dashboard Geral (redireciona)
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // Área do Aluno
+    // Área do Aluno 
     Route::middleware(['aluno'])->prefix('aluno')->name('aluno.')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'alunoDashboard'])->name('dashboard');
+
+        // Processos
         Route::get('/processos', [ProcessoController::class, 'alunoIndex'])->name('processos');
         Route::get('/processos/{id}', [ProcessoController::class, 'alunoShow'])->name('processo.view');
+        Route::get('/processos/novo', [ProcessoController::class, 'create'])->name('processos.create');
+        Route::post('/processos', [ProcessoController::class, 'store'])->name('processos.store');
+
+        // Inscrições
         Route::get('/inscricoes', [InscricaoController::class, 'alunoIndex'])->name('inscricoes');
         Route::get('/inscricoes/{id}', [InscricaoController::class, 'alunoShow'])->name('inscricao.view');
         Route::get('/inscricoes/nova', [InscricaoController::class, 'create'])->name('nova-inscricao');
         Route::post('/inscricoes', [InscricaoController::class, 'store'])->name('inscricao.store');
+        Route::post('/inscricoes/{id}/teste', [InscricaoController::class, 'fazerTeste'])->name('inscricao.teste');
+        Route::post('/inscricoes/{id}/validar', [InscricaoController::class, 'validar'])->name('inscricao.validar');
+
+        // Documentos
         Route::get('/documentos', [DocumentoController::class, 'alunoIndex'])->name('documentos');
+        Route::get('/documentos/novo', [DocumentoController::class, 'create'])->name('documentos.create');
         Route::post('/documentos', [DocumentoController::class, 'store'])->name('documento.store');
+        Route::get('/documentos/{id}/download', [DocumentoController::class, 'download'])->name('documento.download');
+        Route::delete('/documentos/{id}', [DocumentoController::class, 'destroy'])->name('documento.destroy');
+
+        // Perfil
         Route::get('/perfil', [UsuarioController::class, 'perfil'])->name('perfil');
         Route::put('/perfil', [UsuarioController::class, 'updatePerfil'])->name('perfil.update');
     });
