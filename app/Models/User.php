@@ -6,18 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-class Usuario extends Authenticatable
+class User extends Authenticatable
 {
-    use SoftDeletes, Notifiable;
-
-    protected $table = 'usuarios';
-    protected $primaryKey = 'id';
+    use SoftDeletes, Notifiable, CanResetPassword;
 
     protected $fillable = [
         'nome',
         'email',
-        'senha',
+        'senha', // ATENÇÃO: campo é 'senha', não 'password'
         'bi',
         'data_nasc',
         'morada',
@@ -28,20 +27,39 @@ class Usuario extends Authenticatable
     ];
 
     protected $hidden = [
-        'senha',
+        'senha', // Esconder o campo 'senha'
         'remember_token',
     ];
 
     protected $casts = [
         'email_verificado_em' => 'datetime',
         'ativo' => 'boolean',
-        'data_nasc' => 'date:d/m/Y',
+        'data_nasc' => 'date',
     ];
 
-    // Método personalizado para obter a senha 
+    /**
+     * Sobrescrever para usar o campo 'senha' em vez de 'password'
+     */
     public function getAuthPassword()
     {
         return $this->senha;
+    }
+
+    /**
+     * Get the email address for password reset.
+     */
+    public function getEmailForPasswordReset()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Send the password reset notification.
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        // Usar notificação padrão do Laravel
+        $this->notify(new \Illuminate\Auth\Notifications\ResetPassword($token));
     }
 
     // Relacionamentos

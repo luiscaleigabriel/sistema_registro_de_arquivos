@@ -46,12 +46,12 @@ class Processo extends Model
 
     public function criador()
     {
-        return $this->belongsTo(Usuario::class, 'criado_por');
+        return $this->belongsTo(User::class, 'criado_por');
     }
 
     public function analista()
     {
-        return $this->belongsTo(Usuario::class, 'analisado_por');
+        return $this->belongsTo(User::class, 'analisado_por');
     }
 
     public function inscricoes()

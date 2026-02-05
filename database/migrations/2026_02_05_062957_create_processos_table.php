@@ -17,8 +17,8 @@ return new class extends Migration
             $table->enum('status', ['aberto', 'em_analise', 'aprovado', 'rejeitado', 'arquivado'])->default('aberto');
             $table->text('descricao')->nullable();
             $table->decimal('taxa_processo', 10, 2)->default(0);
-            $table->foreignId('criado_por')->nullable()->constrained('usuarios');
-            $table->foreignId('analisado_por')->nullable()->constrained('usuarios');
+            $table->foreignId('criado_por')->nullable()->constrained('users');
+            $table->foreignId('analisado_por')->nullable()->constrained('users');
             $table->date('data_analise')->nullable();
             $table->text('observacoes_analise')->nullable();
             $table->date('data_arquivamento')->nullable();

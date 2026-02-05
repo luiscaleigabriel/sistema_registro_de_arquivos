@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('administradores', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('usuario_id')->constrained('usuarios')->onDelete('cascade');
+            $table->foreignId('usuario_id')->constrained('users')->onDelete('cascade');
             $table->string('codigo_admin')->unique();
             $table->string('nivel_permissao', 50)->default('super');
             $table->boolean('pode_gerenciar_usuarios')->default(true);

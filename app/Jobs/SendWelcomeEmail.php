@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Usuario;
+use App\Models\User;
 use App\Models\Aluno;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\WelcomeEmail;
@@ -22,7 +22,7 @@ class SendWelcomeEmail implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(Usuario $usuario, Aluno $aluno)
+    public function __construct(User $usuario, Aluno $aluno)
     {
         $this->usuario = $usuario;
         $this->aluno = $aluno;

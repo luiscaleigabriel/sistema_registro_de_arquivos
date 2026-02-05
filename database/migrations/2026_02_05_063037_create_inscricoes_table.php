@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('nota_teste', 5, 2)->nullable();
             $table->enum('resultado_teste', ['aprovado', 'reprovado', 'pendente'])->default('pendente');
             $table->text('observacoes')->nullable();
-            $table->foreignId('avaliado_por')->nullable()->constrained('usuarios');
+            $table->foreignId('avaliado_por')->nullable()->constrained('users');
             $table->date('data_avaliacao')->nullable();
             $table->boolean('documentos_completos')->default(false);
             $table->boolean('taxa_paga')->default(false);

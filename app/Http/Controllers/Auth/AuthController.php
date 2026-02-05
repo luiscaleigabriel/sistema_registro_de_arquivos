@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-use App\Models\Usuario;
+use App\Models\User;
 use App\Models\Aluno;
 use App\Jobs\SendWelcomeEmail;
 
@@ -43,7 +43,7 @@ class AuthController extends Controller
                 ->withInput($request->except('senha'));
         }
 
-        // Tentar autenticação  
+        // Tentar autenticação
         $credentials = [
             'email' => $request->email,
             'password' => $request->senha, // Laravel espera 'password'
@@ -111,7 +111,7 @@ class AuthController extends Controller
 
         try {
             // Criar usuário
-            $usuario = Usuario::create([
+            $usuario = User::create([
                 'nome' => $request->nome,
                 'email' => $request->email,
                 'senha' => Hash::make($request->senha),
@@ -127,7 +127,7 @@ class AuthController extends Controller
             // Criar aluno
             $aluno = Aluno::create([
                 'usuario_id' => $usuario->id,
-                'numero_aluno' => Usuario::gerarNumeroAluno(),
+                'numero_aluno' => User::gerarNumeroAluno(),
                 'curso' => $request->curso,
                 'ano_letivo' => date('Y') . '/' . (date('Y') + 1),
                 'status' => 'ativo',
@@ -208,7 +208,7 @@ class AuthController extends Controller
      */
     public function verifyEmail($id, $hash)
     {
-        $user = Usuario::findOrFail($id);
+        $user = User::findOrFail($id);
 
         if (!hash_equals($hash, sha1($user->email))) {
             abort(403);
@@ -241,7 +241,7 @@ class AuthController extends Controller
     {
         $request->validate(['email' => 'required|email']);
 
-        $user = Usuario::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->first();
 
         if ($user) {
             // Gerar token e enviar email (implementar depois)

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Usuario;
+use App\Models\User;
 use App\Models\Aluno;
 use App\Models\Secretario;
 use App\Models\Administrador;
@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         Aluno::truncate();
         Secretario::truncate();
         Administrador::truncate();
-        Usuario::truncate();
+        User::truncate();
 
         // Criar administrador principal
         $adminUser = Usuario::create([

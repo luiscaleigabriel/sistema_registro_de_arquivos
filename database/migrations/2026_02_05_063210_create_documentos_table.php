@@ -19,8 +19,8 @@ return new class extends Migration
             $table->decimal('tamanho', 10, 2)->comment('Tamanho em KB');
             $table->enum('status', ['pendente', 'validado', 'rejeitado'])->default('pendente');
             $table->text('observacoes_validacao')->nullable();
-            $table->foreignId('enviado_por')->constrained('usuarios');
-            $table->foreignId('validado_por')->nullable()->constrained('usuarios');
+            $table->foreignId('enviado_por')->constrained('users');
+            $table->foreignId('validado_por')->nullable()->constrained('users');
             $table->dateTime('data_envio');
             $table->dateTime('data_validacao')->nullable();
             $table->softDeletes();

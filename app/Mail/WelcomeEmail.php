@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Usuario;
+use App\Models\User;
 use App\Models\Aluno;
 
 class WelcomeEmail extends Mailable
@@ -20,7 +20,7 @@ class WelcomeEmail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(Usuario $usuario, Aluno $aluno)
+    public function __construct(User $usuario, Aluno $aluno)
     {
         $this->usuario = $usuario;
         $this->aluno = $aluno;

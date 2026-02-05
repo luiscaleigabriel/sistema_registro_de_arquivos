@@ -29,7 +29,7 @@ class Aluno extends Model
     // Relacionamentos
     public function usuario()
     {
-        return $this->belongsTo(Usuario::class, 'usuario_id');
+        return $this->belongsTo(User::class, 'usuario_id');
     }
 
     public function processos()

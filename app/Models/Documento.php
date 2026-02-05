@@ -50,12 +50,12 @@ class Documento extends Model
 
     public function remetente()
     {
-        return $this->belongsTo(Usuario::class, 'enviado_por');
+        return $this->belongsTo(User::class, 'enviado_por');
     }
 
     public function validador()
     {
-        return $this->belongsTo(Usuario::class, 'validado_por');
+        return $this->belongsTo(User::class, 'validado_por');
     }
 
     // Scopes

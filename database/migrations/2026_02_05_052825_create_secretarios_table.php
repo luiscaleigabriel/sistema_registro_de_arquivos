@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('secretarios', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('usuario_id')->constrained('usuarios')->onDelete('cascade');
+            $table->foreignId('usuario_id')->constrained('users')->onDelete('cascade');
             $table->string('codigo_func')->unique();
             $table->string('departamento', 100);
             $table->enum('tipo', ['academico', 'administrativo', 'financeiro']);
