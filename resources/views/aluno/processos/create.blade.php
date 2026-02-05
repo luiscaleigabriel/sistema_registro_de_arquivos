@@ -175,7 +175,7 @@
                                         <div class="flex-grow-1 ms-3">
                                             <h5 class="alert-heading">Taxa de Processo</h5>
                                             <p class="mb-1">Este processo está sujeito a uma taxa administrativa de
-                                                <strong>1000Kz</strong>.</p>
+                                                <strong>5.000,00 kz</strong>.</p>
                                             <p class="mb-0">A taxa deve ser paga após a aprovação do processo.</p>
                                         </div>
                                     </div>

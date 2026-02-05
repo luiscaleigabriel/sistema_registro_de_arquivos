@@ -51,7 +51,7 @@ class Inscricao extends Model
 
     public function avaliador()
     {
-        return $this->belongsTo(Usuario::class, 'avaliado_por');
+        return $this->belongsTo(User::class, 'avaliado_por');
     }
 
     public function documentos()

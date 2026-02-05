@@ -119,7 +119,7 @@
                                             <i class="bi bi-eye"></i>
                                         </a>
                                         @if($processo->status === 'aberto')
-                                        <a href="#" class="btn btn-sm btn-outline-warning" title="Editar">
+                                        <a href="{{ route('aluno.processos.edit', $processo->id) }}" class="btn btn-sm btn-outline-warning" title="Editar">
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                         @endif

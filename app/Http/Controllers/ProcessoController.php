@@ -104,4 +104,99 @@ class ProcessoController extends Controller
             'data_envio' => now()
         ]);
     }
+
+    /**
+     * Mostrar formulário para editar processo
+     */
+    public function edit($id)
+    {
+        $aluno = Auth::user()->aluno;
+        $processo = Processo::where('aluno_id', $aluno->id)
+            ->with('documentos')
+            ->findOrFail($id);
+
+        // Verificar se pode editar (apenas se status = 'aberto')
+        if ($processo->status !== 'aberto') {
+            return redirect()->route('aluno.processo.view', $id)
+                ->with('warning', 'Este processo não pode ser editado pois já está em análise.');
+        }
+
+        return view('aluno.processos.edit', compact('processo', 'aluno'));
+    }
+
+    /**
+     * Atualizar processo
+     */
+    public function update(Request $request, $id)
+    {
+        $aluno = Auth::user()->aluno;
+        $processo = Processo::where('aluno_id', $aluno->id)
+            ->findOrFail($id);
+
+        // Verificar se pode editar
+        if ($processo->status !== 'aberto') {
+            return redirect()->route('aluno.processo.view', $id)
+                ->with('error', 'Este processo não pode ser editado.');
+        }
+
+        $request->validate([
+            'tipo' => 'required|in:admissao,matricula,transferencia,certificado,bolsa,declaracao,outro',
+            'descricao' => 'required|string|max:500',
+            'novos_documentos' => 'array',
+            'novos_documentos.*' => 'file|mimes:pdf,jpg,jpeg,png,doc,docx|max:5120',
+            'novos_tipos_documentos.*' => 'nullable|string|max:50'
+        ]);
+
+        // Atualizar processo
+        $processo->update([
+            'tipo' => $request->tipo,
+            'descricao' => $request->descricao,
+            'atualizado_em' => now(),
+            'atualizado_por' => Auth::id()
+        ]);
+
+        // Upload de novos documentos
+        if ($request->hasFile('novos_documentos')) {
+            foreach ($request->file('novos_documentos') as $key => $documento) {
+                if ($documento->isValid()) {
+                    $tipo = $request->novos_tipos_documentos[$key] ?? 'outro';
+                    $this->uploadDocumento($processo, $documento, $tipo);
+                }
+            }
+        }
+
+        return redirect()->route('aluno.processo.view', $id)
+            ->with('success', 'Processo atualizado com sucesso!');
+    }
+
+    /**
+     * Finalizar processo (enviar para análise)
+     */
+    public function finalizar($id)
+    {
+        $aluno = Auth::user()->aluno;
+        $processo = Processo::where('aluno_id', $aluno->id)
+            ->findOrFail($id);
+
+        if ($processo->status !== 'aberto') {
+            return redirect()->route('aluno.processo.view', $id)
+                ->with('error', 'Este processo já foi finalizado.');
+        }
+
+        // Verificar se tem documentos
+        if ($processo->documentos->count() === 0) {
+            return redirect()->route('aluno.processo.edit', $id)
+                ->with('warning', 'Adicione pelo menos um documento antes de finalizar.');
+        }
+
+        // Atualizar status
+        $processo->update([
+            'status' => 'em_analise',
+            'data_envio_analise' => now()
+        ]);
+
+        return redirect()->route('aluno.processo.view', $id)
+            ->with('success', 'Processo enviado para análise com sucesso!');
+    }
+
 }
