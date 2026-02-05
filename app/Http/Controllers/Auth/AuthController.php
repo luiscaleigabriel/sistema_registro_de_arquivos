@@ -34,7 +34,7 @@ class AuthController extends Controller
         // Validação
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'senha' => 'required|min:6',
+            'senha' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -65,7 +65,7 @@ class AuthController extends Controller
 
         return back()
             ->withErrors([
-                'email' => 'Credenciais inválidas ou conta desativada.',
+                'email' => 'Credenciais inválidas!.',
             ])
             ->withInput($request->except('senha'));
     }
@@ -90,11 +90,11 @@ class AuthController extends Controller
         // Validação
         $validator = Validator::make($request->all(), [
             'nome' => 'required|string|max:100',
-            'email' => 'required|email|max:100|unique:usuarios,email',
-            'bi' => 'required|string|max:20|unique:usuarios,bi',
+            'email' => 'required|email|max:100|unique:users,email',
+            'bi' => 'required|string|max:20|unique:users,bi',
             'data_nasc' => 'required|date|before:-16 years',
             'morada' => 'required|string|max:255',
-            'telefone' => 'required|string|min:9|max:9',
+            'telefone' => 'required|string|min:9|max:16',
             'curso' => 'required|string|max:100',
             'senha' => 'required|string|min:8|confirmed',
             'termos' => 'required|accepted',
@@ -147,11 +147,6 @@ class AuthController extends Controller
             // Autenticar automaticamente
             Auth::login($usuario);
 
-            // Registrar atividade
-            activity()
-                ->causedBy($usuario)
-                ->log('Conta criada e aluno registrado');
-
             return redirect()->route('aluno.dashboard')
                 ->with('success', 'Conta criada com sucesso! Bem-vindo ao sistema.');
 
@@ -170,13 +165,6 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $user = Auth::user();
-
-        if ($user) {
-            // Registrar logout
-            activity()
-                ->causedBy($user)
-                ->log('Logout realizado');
-        }
 
         Auth::logout();
         $request->session()->invalidate();

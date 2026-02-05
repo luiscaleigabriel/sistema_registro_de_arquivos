@@ -13,10 +13,12 @@ class User extends Authenticatable
 {
     use SoftDeletes, Notifiable, CanResetPassword;
 
+    protected $table = 'users';
+
     protected $fillable = [
         'nome',
         'email',
-        'senha', // ATENÇÃO: campo é 'senha', não 'password'
+        'senha',
         'bi',
         'data_nasc',
         'morada',

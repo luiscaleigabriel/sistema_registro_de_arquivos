@@ -7,7 +7,7 @@
     <title>@yield('title') - Instituto 30 de Setembro</title>
 
     <!-- Bootstrap 5 CSS -->
-    <link href="{{ asset('assets/css/auth.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- CSS personalizado -->
