@@ -213,8 +213,8 @@ class Inscricao extends Model
     public function getPodeSubmeterAttribute()
     {
         return $this->status === 'pendente' &&
-               $this->documentos_completos &&
-               $this->taxa_paga;
+            $this->documentos_completos &&
+            $this->taxa_paga;
     }
 
     // Eventos
@@ -243,4 +243,6 @@ class Inscricao extends Model
             }
         });
     }
+
+
 }

@@ -173,4 +173,47 @@ class InscricaoController extends Controller
 
         return redirect()->back()->with('error', 'Inscrição não pode ser validada. Verifique se todos os documentos foram enviados.');
     }
+
+    public function adicionarDocumento(Request $request, $id)
+    {
+        $aluno = Auth::user()->aluno;
+        $inscricao = Inscricao::where('aluno_id', $aluno->id)->findOrFail($id);
+
+        if ($inscricao->status !== 'pendente') {
+            return redirect()->back()
+                ->with('error', 'Só é possível adicionar documentos a inscrições pendentes.');
+        }
+
+        $request->validate([
+            'tipo' => 'required|string|max:50',
+            'documento' => 'required|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:5120'
+        ]);
+
+        $this->uploadDocumento($inscricao, $request->file('documento'), $request->tipo);
+
+        return redirect()->back()
+            ->with('success', 'Documento adicionado com sucesso!');
+    }
+
+    public function destroyDocumento($id)
+    {
+        $aluno = Auth::user()->aluno;
+        $documento = Documento::whereHas('inscricao', function ($query) use ($aluno) {
+            $query->where('aluno_id', $aluno->id);
+        })->findOrFail($id);
+
+        if ($documento->inscricao->status !== 'pendente') {
+            return redirect()->back()
+                ->with('error', 'Não é possível excluir documentos de inscrições já enviadas.');
+        }
+
+        // Excluir arquivo físico
+        Storage::delete($documento->caminho_arquivo);
+
+        // Excluir registro
+        $documento->delete();
+
+        return redirect()->back()
+            ->with('success', 'Documento excluído com sucesso!');
+    }
 }

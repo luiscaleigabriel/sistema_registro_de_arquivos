@@ -55,11 +55,11 @@ Route::middleware(['auth.check'])->group(function () {
 
         // Inscrições
         Route::get('/inscricoes', [InscricaoController::class, 'alunoIndex'])->name('inscricoes');
-        Route::get('/inscricoes/{id}', [InscricaoController::class, 'alunoShow'])->name('inscricao.view');
-        Route::get('/inscricoes/nova', [InscricaoController::class, 'create'])->name('nova-inscricao');
         Route::post('/inscricoes', [InscricaoController::class, 'store'])->name('inscricao.store');
+        Route::get('/inscricoes/nova', [InscricaoController::class, 'create'])->name('nova-inscricao');
         Route::post('/inscricoes/{id}/teste', [InscricaoController::class, 'fazerTeste'])->name('inscricao.teste');
         Route::post('/inscricoes/{id}/validar', [InscricaoController::class, 'validar'])->name('inscricao.validar');
+        Route::get('/inscricoes/{id}', [InscricaoController::class, 'alunoShow'])->name('inscricao.view');
 
         // Documentos
         Route::get('/documentos', [DocumentoController::class, 'alunoIndex'])->name('documentos');

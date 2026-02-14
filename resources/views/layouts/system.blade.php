@@ -47,7 +47,6 @@
                     </button>
                     <h4 class="mb-0">@yield('page-title')</h4>
                 </div>
-
                 <div class="user-menu">
                     <div class="user-info">
                         <div class="user-name">{{ Auth::user()->nome ?? 'Usuário' }}</div>
@@ -76,7 +75,7 @@
                             <li>
                                 <form method="POST" action="{{ route('logout') }}" id="logoutForm">
                                     @csrf
-                                    <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
                                         <i class="bi bi-box-arrow-right me-2"></i>Sair
                                     </a>
                                 </form>
